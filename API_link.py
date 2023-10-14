@@ -1,6 +1,7 @@
 import os
 import csv
 import argparse
+import json
 
 #TO DO: make input csv arg optional and grab most recent csv file by date in upload_history folder
 
@@ -13,7 +14,10 @@ def main():
     token = args.token
     csv_file=args.csv_file
 
-    tier1_path='/home/feczk001/shared/projects/BCP_BOBs_BIDSified'
+    with open("config.json") as json_data_file:
+        data = json.load(json_data_file)
+    
+    tier1_path = data['tier1_path']
 
     with open(csv_file, 'r') as file:
         csv_reader = csv.reader(file)
