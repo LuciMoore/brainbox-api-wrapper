@@ -56,8 +56,6 @@ try:
 
     for obj in response.get('Contents', []):
         object_url = f"{bucket_url}{obj['Key']}"
-        #print(f"{obj['Key']}, {object_url}")
-        #print(f"{object_url}")
         if 'T1w' in f"{object_url}":
             urls.append(f"{object_url}")
         if 'T2w' in f"{object_url}":
@@ -92,7 +90,6 @@ if len(os.listdir(directory)) == 0:
 
 else:
     # Create DataFrame that is a combination of all prior upload csvs
-    # Import prior csv upload files as pandas dataframes 
     dataframes = []
 
     # Loop through CSV files in the directory
