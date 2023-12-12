@@ -112,3 +112,16 @@ else:
     difference_df.to_csv(csv_file, index=False, header=None)
 
     print(f'Data has been written to {csv_file}')
+
+## Generate separate csv files split out by age
+full_repo_df=pd.read_csv(csv_file, header=None)
+
+# Isolate filename from full path in case full path is provided and remmove .csv extension
+bn=os.path.basename(csv_file)
+csv_temp=bn.strip('.csv')
+
+ages = ['1mo', '2mo', '3mo', '4mo', '5mo', '6mo', '7mo', '8mo']
+for age in ages:
+    df = full_repo_df[full_repo_df[1].str.contains(f'{age}')]
+    csv_file_by_age = f'./upload_history/{csv_temp}_{age}.csv'
+    df.to_csv(csv_file_by_age, index=False, header=None)
