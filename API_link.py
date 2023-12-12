@@ -32,9 +32,14 @@ def main():
             subid=parts[0].strip('sub-')
             sesid=parts[1].strip('ses-')
             brainboxsegname=(sesid+subid+'freesurfer')
-            aseg='{}/{}/{}/{}_space-INFANTMNIacpc_desc-aseg_dseg.nii.gz'.format(tier1_path, parts[0], parts[1], subses)
+            aseg='{}/{}/{}/anat/{}_space-INFANTMNIacpc_desc-aseg_dseg.nii.gz'.format(tier1_path, parts[0], parts[1], subses)
 
-            cmd=f'./API_BOBs_submission.sh {awspath} {brainboxsegname} BOBsRepository {aseg} {token}'
+            #cmd=f'sbatch API_link.sh {awspath} {brainboxsegname} BOBsRepository {aseg} {token}'
+            #os.system(cmd)
+
+            cmd=f'curl -F url={awspath} -F atlasName={brainboxsegname} -F atlasLabelSet=freesurfer.json -F atlasProject=BOBsRepository -F atlas={aseg} -F token={token} https://brainbox.pasteur.fr/mri/upload'
+            
+            print(cmd)
             os.system(cmd)
 
 if __name__ == "__main__":
